@@ -62,8 +62,7 @@ app.get('/get/common',(req,res,next)=>{
     console.log(req.query);
     getUser(req.query.user_one,req.query.user_two).then(x=>{
         res.json({
-            //commonUsers : x
-            commonUsers : ["nazrul","hassan"]
+            commonUsers : x
         });
     });
 });
