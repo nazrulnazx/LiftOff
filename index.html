@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <div class="content p-5">
+        <form action="/get/common">
+
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="firstName">First User</label>
+                    <input type="text" class="form-control" name="user_one" id="firstName" placeholder="nazrul_nazx"
+                        value="nazrul_nazx" required="">
+                    <div class="invalid-feedback">
+                        Valid first name is required.
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label for="lastName">Second user</label>
+                    <input type="text" class="form-control" name="user_two" id="lastName" placeholder="chandan37791131"
+                        value="chandan37791131" required="">
+                    <div class="invalid-feedback">
+                        Valid last name is required.
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="formSubmit(this,event)" type="submit">check</button>
+        </form>
+
+        <div class="row pt-5">
+            <div class="col-sm-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>##</th>
+                            <th>Mutual Friends</th>
+                        </tr>
+                    </thead>
+                    <tbody class="user-list">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    function formSubmit(THIS,Event){
+        Event.preventDefault();
+        user_one = document.getElementsByName('user_one')[0].value;
+        user_two = document.getElementsByName('user_two')[0].value;
+        let url = '/get/common?user_one='+user_one+'&user_two='+user_two;
+        let value = fetch(url);
+        value.then(res=>res.json())
+        .then(res=>{
+            let html = "";
+            res.commonUsers.forEach((name,i) => {
+                html += `
+                <tr>
+                    <td>${i+1}</td>
+                    <td>${name}</td>
+                </tr>`;                      
+            });
+            document.getElementsByClassName('user-list')[0].innerHTML = html;
+        }); 
+       ;
+
+    }
+
+
+</script>
+
+
+
+</body>
+
+</html>
