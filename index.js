@@ -1,7 +1,7 @@
-const express = require('express');
-const app     = express();
-const axios   = require('axios');
-
+const express  = require('express');
+const app      = express();
+const axios    = require('axios');
+const path    = require('path');
 const getData = async (url,userName) =>{
     try{
         const response = await axios.get(url,{
@@ -24,7 +24,7 @@ const getData = async (url,userName) =>{
              }
              return newData;
     }catch(error){
-        console.log(error);
+        console.log(error.response.statusText);
     }
 }
 
@@ -49,36 +49,27 @@ async function  getUser(name1,name2){
             common.push(userTwo[x]);
         }
     }
-    console.log(common);
     return common;
 }
 
 
 app.get('/',(req,res,next)=>{
-
-    res.send(`
-        <form action="/get/common">
-        user one:
-        <input name="user_one" placeholder="nazrul_nazx"><br>
-        user two:
-        <input name="user_two" placeholder="chandan37791131"><br>
-        <button type="submit">check</button>
-    
-        </form>
-    `);
+    res.sendFile(path.join(__dirname + '/index.html'));
 
 });
 
 app.get('/get/common',(req,res,next)=>{
+    console.log(req.query);
     getUser(req.query.user_one,req.query.user_two).then(x=>{
         res.json({
-            commonUsers : x
+            //commonUsers : x
+            commonUsers : ["nazrul","hassan"]
         });
     });
 });
 
 app.listen(process.env.PORT,()=>{
-console.log('listining at port 3000');
+console.log('listining at port '+process.env.PORT);
 });
 
 
