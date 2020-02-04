@@ -73,8 +73,8 @@ if (cluster.isMaster) {
         console.log(req.query);
         getUser(req.query.user_one,req.query.user_two).then(x=>{
             res.json({
-                //commonUsers : x
-                commonUsers : ["nazrul","hassan"]
+                commonUsers : x
+                //commonUsers : ["nazrul","hassan"]
             });
         });
     });
